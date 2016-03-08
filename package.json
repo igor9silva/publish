@@ -16,5 +16,10 @@
     "git"
   ],
   "author": "Igor Silva",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "keypress-prompt": "^0.3.2",
+    "semver": "^5.1.0",
+    "simple-git": "^1.28.0"
+  }
 }
