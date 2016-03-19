@@ -1,10 +1,10 @@
 {
   "name": "publish",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "A simple script for publishing git repositories",
   "main": "publish.js",
   "scripts": {
-    "start": "./publish.js",
+	"start": "./publish.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
