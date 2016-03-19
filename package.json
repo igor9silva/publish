@@ -1,14 +1,15 @@
 {
-  "name": "publish.js",
+  "name": "publish",
   "version": "1.0.0",
   "description": "A simple script for publishing git repositories",
-  "main": "app.js",
+  "main": "publish.js",
   "scripts": {
+	"start": "./publish.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "tod"
+    "url": "TODO"
   },
   "keywords": [
     "publish",
@@ -18,6 +19,7 @@
   "author": "Igor Silva",
   "license": "MIT",
   "dependencies": {
+    "cli": "^0.11.2",
     "keypress-prompt": "^0.3.2",
     "semver": "^5.1.0",
     "simple-git": "^1.28.0"
