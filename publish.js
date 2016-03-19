@@ -30,7 +30,7 @@ cli.enable('help', 'version', 'status')
 cli.parse({
 	tag: 		['t', msgs.help.tag, 	 'string', 'v%@'],
 	message: 	['m', msgs.help.message, 'string', 'Publish v%@'],
-	force: 		['f', msgs.help.force,   'true',   false],
+	force: 		['f', msgs.help.force,   'bool',   false],
 });
 
 /* Main Entry */
@@ -63,6 +63,9 @@ cli.main(function(args, options) {
 				if (err) error.fatal('ERR_GIT');
 				if (!status.isClean() && !options.force) error.fatal('ERR_UNCOMMITTED_CHANGES');
 				if (status.current !== DEFAULT_BRANCH && !options.force) error.fatal('ERR_WRONG_BRANCH', DEFAULT_BRANCH);
+
+				const branch = status.current;
+				const remote = DEFAULT_REMOTE;
 			
 				// Has passed every validation, now, just do it
 				packageJSON.version = version;
@@ -77,8 +80,8 @@ cli.main(function(args, options) {
 					.add([PACKAGE_PATH])
 					.commit(msg, handler)
 					.addAnnotatedTag(tag, msg, handler)
-					.push(DEFAULT_REMOTE, DEFAULT_BRANCH, handler)
-					.pushTags(DEFAULT_REMOTE, handler)
+					.push(remote, branch, handler)
+					.pushTags(remote, handler)
 					.then(() => {
 						console.log(util.replace(msgs.success, version));
 						process.exit(0);

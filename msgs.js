@@ -26,4 +26,5 @@ module.exports = {
 	help: help,
 	usage: usage,
 	prompt: prompt,
+	success: success,
 };
