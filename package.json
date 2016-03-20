@@ -1,6 +1,6 @@
 {
   "name": "publish-cli",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A simple script for publishing git repositories",
   "main": "publish.js",
   "scripts": {
@@ -26,10 +26,10 @@
     "url": "http://github.com/igor9silva"
   },
   "bin": {
-	"publish": "./publish.js"
+    "publish": "./publish.js"
   },
   "engines": {
-	  "node": ">=5.0.0"
+    "node": ">=5.0.0"
   },
   "preferGlobal": true,
   "license": "SEE LICENSE IN LICENSE",
