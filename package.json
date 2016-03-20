@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/igor9silva/publish"
+    "url": "igor9silva/publish"
   },
   "keywords": [
     "publish",
@@ -20,8 +20,19 @@
     "branch": "master",
     "remote": "origin"
   },
-  "author": "Igor Silva",
-  "license": "JLMK",
+  "author": {
+    "name": "Igor Silva",
+    "email": "igorsilva@garrastudios.com",
+    "url": "http://github.com/igor9silva"
+  },
+  "bin": {
+	"publish": "./publish.js"
+  },
+  "engines": {
+	  "node": ">=5.0.0"
+  },
+  "preferGlobal": true,
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "cli": "^0.11.2",
     "keypress-prompt": "^0.3.2",
