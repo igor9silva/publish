@@ -79,13 +79,13 @@ cli.main(function(args, options) {
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
 					git
-					.add([PACKAGE_PATH])
-					.commit(msg, handler)
-					.addAnnotatedTag(tag, msg, handler)
-					.push(remote, branch, handler)
-					.pushTags(remote, handler)
+					.add([PACKAGE_PATH]).then(() => cli.spinner('1 Working...'))
+					.commit(msg, handler).then(() => cli.spinner('2 Working...'))
+					.addAnnotatedTag(tag, msg, handler).then(() => cli.spinner('3 Working...'))
+					.push(remote, branch, handler).then(() => cli.spinner('4 Working...'))
+					.pushTags(remote, handler).then(() => cli.spinner('5 Working...'))
 					.then(() => {
-						console.log(util.replace(msgs.success, version));
+						cli.spinner(util.replace(msgs.success, version), true);
 						process.exit(0);
 					}); // git 
 
