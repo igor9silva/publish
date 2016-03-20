@@ -17,7 +17,7 @@
     "git"
   ],
   "publish": {
-    "branch": "develop",
+    "branch": "master",
     "remote": "origin"
   },
   "author": "Igor Silva",
