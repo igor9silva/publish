@@ -79,7 +79,7 @@ cli.main(function(args, options) {
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
 					let lastMsg;
-					const greenCheckMark = '\t\x1B[33m✓\x1B[0m';
+					const greenCheckMark = '\x1B[32m✓\x1B[0m';
 					const setMsg 	= (msg) => { cli.spinner(`${msg}...`); lastMsg = msg; };
 					const doneLast 	= (   ) => { lastMsg && cli.spinner(`${lastMsg} ${greenCheckMark}`, true); };
 					const updtMsg	= (msg) => { doneLast(); setMsg(msg); };

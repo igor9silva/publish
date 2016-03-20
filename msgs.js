@@ -17,7 +17,7 @@ const prompt = {
 };
 
 const success = {
-	end:		"\x1B[33mSUCCESS\x1B[0m. The app is now at version %@.",
+	end:		"\x1B[32mSUCCESS! Now at version %@.\x1B[0m.",
 	add:		"Adding package.json",
 	commit: 	"Commiting",
 	tag: 		"Tagging",
