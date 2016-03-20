@@ -1,5 +1,7 @@
 "use strict";
 
+const DEFAULT_ERROR  = 'ERR_UNKNOWN';
+
 /* Dependencies */
 const util = require('./util');
 

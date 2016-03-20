@@ -14,7 +14,6 @@ const prompter	= require('keypress-prompt');
 /* Defaults */
 const DEFAULT_BRANCH = 'master';
 const DEFAULT_REMOTE = 'origin';
-const DEFAULT_ERROR  = 'ERR_UNKNOWN';
 const PACKAGE_PATH	 = 'package.json';
 
 /* Enable CLI plugins */
@@ -91,7 +90,7 @@ cli.main(function(args, options) {
 
 			}); // git status
 
-		}); // promtp
+		}); // prompt
 
 	}); // readfile
 
