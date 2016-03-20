@@ -6,7 +6,6 @@ const cli 		= require('cli');
 const fs		= require('fs');
 const semver	= require('semver');
 const msgs		= require('./msgs');
-const util		= require('./util');
 const error		= require('./error')(cli);
 const git 		= require('simple-git')();
 const prompter	= require('keypress-prompt');
@@ -34,6 +33,7 @@ cli.parse({
 
 /* Main Entry */
 cli.main(function(args, options) {
+	const util = require('./util')(options);
 
 	// Check arguments and grab version
 	if (args.length === 0) error.fatal('ERR_NO_VERSION');
@@ -79,9 +79,8 @@ cli.main(function(args, options) {
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
 					let lastMsg;
-					const greenCheckMark = '\x1B[32m✓\x1B[0m';
 					const setMsg 	= (msg) => { cli.spinner(`${msg}...`); lastMsg = msg; };
-					const doneLast 	= (   ) => { lastMsg && cli.spinner(`${lastMsg} ${greenCheckMark}`, true); };
+					const doneLast 	= (   ) => { lastMsg && cli.spinner(`${lastMsg} ${util.green('✓')}`, true); };
 					const updtMsg	= (msg) => { doneLast(); setMsg(msg); };
 
 					git
@@ -92,7 +91,8 @@ cli.main(function(args, options) {
 					.pushTags(remote, handler)			.then(() => updtMsg(msgs.success.pushTag))
 					.then(() => {
 						doneLast();
-						console.log(util.replace(msgs.success.end, version));
+						const txt = util.green(msgs.success.end);
+						console.log(util.replace(txt, version));
 						process.exit(0);
 					}); // git 
 
