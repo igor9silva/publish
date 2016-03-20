@@ -79,20 +79,20 @@ cli.main(function(args, options) {
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
 					let lastMsg;
-					const greenCheckMark = '\x1B[33m✓\x1B[0m';
-					const setMsg 	= (msg) => { cli.spinner(msg); lastMsg = msg; };
+					const greenCheckMark = '\t\x1B[33m✓\x1B[0m';
+					const setMsg 	= (msg) => { cli.spinner(`${msg}...`); lastMsg = msg; };
 					const doneLast 	= (   ) => { lastMsg && cli.spinner(`${lastMsg} ${greenCheckMark}`, true); };
 					const updtMsg	= (msg) => { doneLast(); setMsg(msg); };
 
 					git
-					.add([PACKAGE_PATH])				.then(() => updtMsg('1 Working...'))
-					.commit(msg, handler)				.then(() => updtMsg('2 Working...'))
-					.addAnnotatedTag(tag, msg, handler)	.then(() => updtMsg('3 Working...'))
-					.push(remote, branch, handler)		.then(() => updtMsg('4 Working...'))
-					.pushTags(remote, handler)			.then(() => updtMsg('5 Working...'))
+					.add([PACKAGE_PATH])				.then(() => updtMsg(msgs.success.add))
+					.commit(msg, handler)				.then(() => updtMsg(msgs.success.commit))
+					.addAnnotatedTag(tag, msg, handler)	.then(() => updtMsg(msgs.success.tag))
+					.push(remote, branch, handler)		.then(() => updtMsg(msgs.success.push))
+					.pushTags(remote, handler)			.then(() => updtMsg(msgs.success.pushTag))
 					.then(() => {
 						doneLast();
-						console.log(util.replace(msgs.success, version));
+						console.log(util.replace(msgs.success.end, version));
 						process.exit(0);
 					}); // git 
 
