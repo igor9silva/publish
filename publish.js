@@ -78,12 +78,17 @@ cli.main(function(args, options) {
 					const tag  = util.replace(options.tag, version);
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
+					const updtMsg = (msg) => {
+						cli.spinner('DONE', true);
+						cli.spinner(msg);
+					};
+
 					git
-					.add([PACKAGE_PATH]).then(() => cli.spinner('1 Working...'))
-					.commit(msg, handler).then(() => cli.spinner('2 Working...'))
-					.addAnnotatedTag(tag, msg, handler).then(() => cli.spinner('3 Working...'))
-					.push(remote, branch, handler).then(() => cli.spinner('4 Working...'))
-					.pushTags(remote, handler).then(() => cli.spinner('5 Working...'))
+					.add([PACKAGE_PATH])				.then(() => updtMsg('1 Working...'))
+					.commit(msg, handler)				.then(() => updtMsg('2 Working...'))
+					.addAnnotatedTag(tag, msg, handler)	.then(() => updtMsg('3 Working...'))
+					.push(remote, branch, handler)		.then(() => updtMsg('4 Working...'))
+					.pushTags(remote, handler)			.then(() => updtMsg('5 Working...'))
 					.then(() => {
 						cli.spinner(util.replace(msgs.success, version), true);
 						process.exit(0);
