@@ -5,9 +5,8 @@
 const cli 		= require('cli');
 const fs		= require('fs');
 const semver	= require('semver');
-const msgs		= require('./msgs');
-const util		= require('./util');
-const error		= require('./error')(cli);
+const msgs		= require('./src/msgs');
+const error		= require('./src/error')(cli);
 const git 		= require('simple-git')();
 const prompter	= require('keypress-prompt');
 
@@ -34,6 +33,7 @@ cli.parse({
 
 /* Main Entry */
 cli.main(function(args, options) {
+	const util = require('./src/util')(options);
 
 	// Check arguments and grab version
 	if (args.length === 0) error.fatal('ERR_NO_VERSION');
@@ -78,14 +78,21 @@ cli.main(function(args, options) {
 					const tag  = util.replace(options.tag, version);
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
+					let lastMsg;
+					const setMsg 	= (msg) => { cli.spinner(`${msg}...`); lastMsg = msg; };
+					const doneLast 	= (   ) => { lastMsg && cli.spinner(`${lastMsg} ${util.green('✓')}`, true); };
+					const updtMsg	= (msg) => { doneLast(); setMsg(msg); };
+
 					git
-					.add([PACKAGE_PATH])
-					.commit(msg, handler)
-					.addAnnotatedTag(tag, msg, handler)
-					.push(remote, branch, handler)
-					.pushTags(remote, handler)
+					.add([PACKAGE_PATH])				.then(() => updtMsg(msgs.success.add))
+					.commit(msg, handler)				.then(() => updtMsg(msgs.success.commit))
+					.addAnnotatedTag(tag, msg, handler)	.then(() => updtMsg(msgs.success.tag))
+					.push(remote, branch, handler)		.then(() => updtMsg(msgs.success.push))
+					.pushTags(remote, handler)			.then(() => updtMsg(msgs.success.pushTag))
 					.then(() => {
-						console.log(util.replace(msgs.success, version));
+						doneLast();
+						const txt = util.green(msgs.success.end);
+						console.log(util.replace(txt, version));
 						process.exit(0);
 					}); // git 
 
