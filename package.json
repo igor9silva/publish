@@ -9,15 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/igor9silva/publish"
   },
   "keywords": [
     "publish",
     "push",
     "git"
   ],
+  "publish": {
+    "branch": "develop",
+    "remote": "origin"
+  },
   "author": "Igor Silva",
-  "license": "MIT",
+  "license": "JLMK",
   "dependencies": {
     "cli": "^0.11.2",
     "keypress-prompt": "^0.3.2",
