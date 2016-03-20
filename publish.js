@@ -78,10 +78,11 @@ cli.main(function(args, options) {
 					const tag  = util.replace(options.tag, version);
 					const handler = err => { err && error.fatal('ERR_GIT_PUSH', msg); };
 
-					const updtMsg = (msg) => {
-						cli.spinner('DONE', true);
-						cli.spinner(msg);
-					};
+					let lastMsg;
+					const greenCheckMark = '\x1B[33m✓\x1B[0m';
+					const setMsg 	= (msg) => { cli.spinner(msg); lastMsg = msg; };
+					const doneLast 	= (   ) => { lastMsg && cli.spinner(`${lastMsg} ${greenCheckMark}`, true); };
+					const updtMsg	= (msg) => { doneLast(); setMsg(msg); };
 
 					git
 					.add([PACKAGE_PATH])				.then(() => updtMsg('1 Working...'))
@@ -90,7 +91,8 @@ cli.main(function(args, options) {
 					.push(remote, branch, handler)		.then(() => updtMsg('4 Working...'))
 					.pushTags(remote, handler)			.then(() => updtMsg('5 Working...'))
 					.then(() => {
-						cli.spinner(util.replace(msgs.success, version), true);
+						doneLast();
+						console.log(util.replace(msgs.success, version));
 						process.exit(0);
 					}); // git 
 
