@@ -6,7 +6,7 @@
 "use strict";
 
 /* Dependencies */
-const util = require('./util');
+const util = require('./util')();
 
 /* Message Map */
 const usageInfo = "Type 'publish --help' for usage info.";
