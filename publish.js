@@ -19,7 +19,7 @@ const PACKAGE_PATH	 = 'package.json';
 cli.enable('help', 'version', 'status')
 
 /* Point package.json so CLI can grab name and version */
-.setApp('./package.json')
+.setApp(`${__dirname}/package.json`)
 
 /* Set usage string */
 .setUsage(msgs.usage);
