@@ -5,8 +5,8 @@
 const cli 		= require('cli');
 const fs		= require('fs');
 const semver	= require('semver');
-const msgs		= require('./msgs');
-const error		= require('./error')(cli);
+const msgs		= require('./src/msgs');
+const error		= require('./src/error')(cli);
 const git 		= require('simple-git')();
 const prompter	= require('keypress-prompt');
 
@@ -33,7 +33,7 @@ cli.parse({
 
 /* Main Entry */
 cli.main(function(args, options) {
-	const util = require('./util')(options);
+	const util = require('./src/util')(options);
 
 	// Check arguments and grab version
 	if (args.length === 0) error.fatal('ERR_NO_VERSION');

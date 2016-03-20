@@ -1,6 +1,9 @@
-"use strict";
+/**
+ * Contains error messages and emitters.
+ * @module Error
+ */
 
-const DEFAULT_ERROR  = 'ERR_UNKNOWN';
+"use strict";
 
 /* Dependencies */
 const util = require('./util');
@@ -24,19 +27,34 @@ const ERROR_MSG = {
 
 module.exports = function(cli) {
 
-	/* Get a human-readable message for the given key */
+	/**
+	 * Get a human-readable message for the given key.
+	 * @param {string} errKey Error key
+	 * @param {string[]} params Parameters to be replaced in the error message
+	 * @private
+	 */
 	function messageForError(errKey, params) {
-		const key = errKey || DEFAULT_ERROR;
-		const text = ERROR_MSG[key] || ERROR_MSG[DEFAULT_ERROR];
+		const key = errKey || 'ERR_UNKNOWN';
+		const text = ERROR_MSG[key] || ERROR_MSG['ERR_UNKNOWN'];
 		const msg = util.replace(text, params);
 
 		return msg;
 	}
 
-	// Log error
+	/**
+	 * Outputs the error message to stdout.
+	 * @param {string} key Error key
+	 * @param {...string} params Any amount of strings to replace %@'s in the error message
+	 * @public
+	 */
 	const error = (key, ...params) => cli.error(messageForError(key, params));
 
-	// Log error and exits with non-zero code
+	/**
+	 * Outputs the error message to stdout and exits with non-zero code.
+	 * @param {string} key Error key
+	 * @param {...string} params Any amount of strings to replace %@'s in the error message
+	 * @public
+	 */
 	error.fatal = (key, ...params) => cli.fatal(messageForError(key, params));
 
 	return error;
