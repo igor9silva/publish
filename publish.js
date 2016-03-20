@@ -58,13 +58,16 @@ cli.main(function(args, options) {
 		prompter.prompt(util.replace(msgs.prompt.areYouSure, [packageJSON.version, version]), ['y', 'n']).then(r => {
 			if (r === 'n') process.exit(0);
 
+
 			git.status((err, status) => {
 				if (err) error.fatal('ERR_GIT');
 				if (!status.isClean() && !options.force) error.fatal('ERR_UNCOMMITTED_CHANGES');
-				if (status.current !== DEFAULT_BRANCH && !options.force) error.fatal('ERR_WRONG_BRANCH', DEFAULT_BRANCH);
 
 				const branch = status.current;
-				const remote = DEFAULT_REMOTE;
+				const mustBeBranch = (packageJSON.publish && packageJSON.publish.branch) || DEFAULT_BRANCH;
+				const remote = (packageJSON.publish && packageJSON.publish.remote) || DEFAULT_REMOTE;
+
+				if (branch !== mustBeBranch && !options.force) error.fatal('ERR_WRONG_BRANCH', mustBeBranch);
 			
 				// Has passed every validation, now, just do it
 				packageJSON.version = version;
