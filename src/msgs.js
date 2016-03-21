@@ -5,9 +5,10 @@
 
 "use strict";
 
-const usage = "publish VERSION [OPTIONS]\n" +
-				"      VERSION -> SemVer compatible version (e.g. 1.1.9) or bump option (i.e. major, minor or patch).\n" +
-				"                 E.g. \`publish minor\` will bump version 1.1.0 to 1.2.0.";
+const usage = "publish <version|bumplevel> [OPTIONS]\n" +
+				"      <version> -> SemVer compatible version (e.g. 1.1.9)\n" +
+				"      <bumplevel> -> Bump level (i.e. major, minor or patch).\n" +
+				"      E.g. \`publish minor\` will bump version 1.1.4 to 1.2.0.";
 
 const help = {
 	message: "The commit/tag message. Use %@ to output version." +
